@@ -1,0 +1,140 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+class item 
+{
+public:
+    int id;
+    char name[20]; 
+    float price;
+
+    void read() 
+	{
+        cout << "\nEnter id, name, price: ";
+        cin >> id >> name >> price;
+    }
+
+    void display() 
+	{
+        cout << "\nId: " << id;
+        cout << "\nName: " << name;
+        cout << "\nPrice: " << price << endl;
+    }
+};
+
+int main() 
+{
+    item s;
+    int j, n;
+    ofstream fout;
+    ifstream fin;
+    char choice;
+    int ch;
+
+    do {
+        cout << "\n1. Write data \n2. Read data \n3. Append data \n4. Search data";
+        cout << "\nEnter your choice: ";
+        cin >> ch;
+
+        switch (ch) 
+		{
+            case 1: 
+			{
+                fout.open("a.txt", ios::out);  
+                if (!fout) {
+                    cout << "\nError opening file for writing!" << endl;
+                    break;
+                }
+                cout << "\nEnter how many items you want to input: ";
+                cin >> n;
+                for (j = 0; j < n; j++) {
+                    s.read();
+                    fout.write((char*)&s, sizeof(s));
+                }
+                fout.close();
+                break;
+            }
+
+            case 2:
+				 {
+                fin.open("a.txt", ios::in);
+                if (!fin) {
+                    cout << "\nError opening file for reading!" << endl;
+                    break;
+                }
+                cout << "\nEnter how many records to read: ";
+                cin >> n;
+                for (j = 0; j < n; j++) {
+                    fin.read((char*)&s, sizeof(s));
+                    if (fin) 
+					{
+                        s.display();
+                    } else 
+					{
+                        break;  // Break if we read an incomplete or invalid record
+                    }
+                }
+                fin.close();
+                break;
+            }
+
+            case 3: 
+			{
+                fout.open("a.txt", ios::app);
+                if (!fout) 
+				{
+                    cout << "\nError opening file for appending!" << endl;
+                    break;
+                }
+                s.read();
+                fout.write((char*)&s, sizeof(s));
+                s.display();
+                fout.close();
+                break;
+            }
+
+            case 4: 
+			{
+                fin.open("a.txt", ios::in);
+                if (!fin) {
+                    cout << "\nError opening file for searching!" << endl;
+                    break;
+                }
+                int flag = 0;
+                item i2;
+                int sid;
+                cout << "\nEnter the search id: ";
+                cin >> sid;
+
+                while (fin.read((char*)&i2, sizeof(i2))) 
+				{
+                    if (i2.id == sid) 
+					{
+                        flag = 1;
+                        cout << "\nItem found:" << endl;
+                        i2.display();
+                        break;
+                    }
+                }
+
+                if (flag == 0) 
+				{
+                    cout << "\nItem not found!" << endl;
+                }
+
+                fin.close();
+                break;
+            }
+
+            default:
+                cout << "\nInvalid choice!" << endl;
+        }
+
+        cout << "\nDo you want to continue? (y/n): ";
+        cin >> choice;
+
+    } while (choice == 'y');
+
+    return 0;
+}
