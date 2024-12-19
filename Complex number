@@ -1,0 +1,81 @@
+#include<iostream>
+using namespace std;
+class complex
+{
+	int real,imag;
+	public:
+		void read()
+		{
+			cin>>real>>imag;
+		}
+		void display()
+		{
+			cout<<real<<"+"<<imag<<"i";
+		}
+		complex operator+(complex c2)
+		{
+			complex c3;
+			c3.real=real+c2.real;
+			c3.imag=imag+c2.imag;
+			return c3;
+		}
+		complex operator*(complex c2)
+		{
+			complex c3;
+			c3.real=(real*c2.real)+(imag*c2.imag);
+			c3.imag=(real*c2.imag)+(c2.real*imag);
+            return c3;
+		}
+		friend istream& operator>>(istream& is,complex &c);
+		friend ostream& operator<<(ostream& os,complex c);
+};
+istream& operator>>(istream& is,complex &c)
+{
+	is>>c.real>>c.imag;
+}
+ostream& operator<<(ostream& os,complex c)
+{
+	os<<c.real<<"+"<<c.imag<<"i";
+}
+int main()
+{
+	complex c1,c2,c3;
+	char choice;
+	int ch;
+	do{
+		cout<<"\n 1.read \n 2.display \n 3.add \n 4.multiply";
+		cout<<"\n enter your choice";
+		cin>>ch;
+		switch(ch)
+		{
+			case 1:cout<<"enter real and imag of c1";
+			cin>>c1;
+			cout<<"\n enter real and imag of c2";
+			cin>>c2;
+			break;
+			
+			case 2:cout<<c1;
+			       cout<<c2;
+			       break;
+			       
+			case 3:c3=c1+c2;
+			cout<<"\n complex1:";
+			cout<<c1;
+			cout<<"\n complex2:";
+			cout<<c2;
+			cout<<"\n sum=";
+			cout<<c3;
+			
+			case 4:c3=c1*c2;
+			cout<<"\n complex1:";
+			cout<<c1;
+			cout<<"\n complex2:";
+			cout<<c2;
+			cout<<"\n multiply=";
+			cout<<c3;       
+		}
+		cout<<"\n do you want to continue(y/n)";
+		cin>>choice;
+	}while(choice=='y');
+	return 0;
+}
