@@ -1,0 +1,36 @@
+#include<iostream>
+#include<map>
+#include<string>
+using namespace std;
+int main()
+{
+	map<string,int>mymap;
+	map<string,int>::iterator itr;
+	int n;
+	cout<<"\n how many states you want to store:";
+	cin>>n;
+	int i,p;
+	string s;
+	for(i=0;i<n;i++)
+	{
+		cout<<"\n enter states and population:";
+		cin>>s>>p;
+		mymap.insert(pair<string,int>(s,p));
+	}
+	for(itr=mymap.begin();itr!=mymap.end();itr++)
+	{
+		cout<<(*itr).first<<"\t"<<(*itr).second<<endl;
+	}
+	cout<<"\n enter state to be search:";
+		cin>>s;
+		itr=mymap.find(s);
+		if(itr==mymap.end())
+		{
+			cout<<"\n not found"<<s;
+		}
+		else
+		{
+			cout<<"population"<<s<<"is"<<(*itr).second<<endl;
+		}
+		return 0;
+}
