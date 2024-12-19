@@ -1,0 +1,93 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class student
+{
+	static int count;
+	string name,dob,bg,add,className;
+	int mob,rno;
+	char div;
+	public:
+		student()
+		{
+			name="srushti";
+			dob="10/4/2006";
+			bg="AB+ve";
+			add="sangamner";
+			className="S.E";
+			mob=9970935531;
+			rno=23;
+			div='A';
+			count++;
+		}
+		student(student &s)
+		{
+			name=s.name;
+			dob=s.dob;
+			bg=s.bg;
+			add=s.add;
+			className=s.className;
+			mob=s.mob;
+			rno=s.rno;
+			div=s.div;
+			count++;
+		}
+		~student()
+		{
+			cout<<"\n"<<this->name<<"is destroyed";
+		}
+		void read()
+		{
+			cout<<"\n name:"<<name;
+			cout<<"\n date of birth:"<<dob;
+			cout<<"\n blood group:"<<bg;
+			cout<<"\n ClassName:"<<className;
+			cout<<"\n roll no:"<<rno;
+			cout<<"\n division:"<<div;
+			cout<<"\n address:"<<add;
+			cout<<"mobile no:"<<mob;
+		}
+		friend void display(student *p);
+		static void displaycount()
+		{
+			cout<<"\n number of students"<<count;
+		}
+};
+int student::count=0;
+void display(student *p)
+{
+	cout<<"\n name:"<<p->name;
+		cout<<"\n date of birth:"<<p->dob;
+		cout<<"\n blood group:"<<p->bg;
+		cout<<"\n ClassName:"<<p->className;
+		cout<<"\n roll no:"<<p->rno;
+		cout<<"\n division:"<<p->div;
+		cout<<"\n address:"<<p->add;
+		cout<<"mobile no:"<<p->mob;
+}
+int main()
+{
+	student s1,s2(s1);
+	int n,i;
+	cout<<"\n enter how many students you want to display:";
+	cin>>n;
+	student* ptr[n];
+	for(i=0;i<n;i++)
+	{
+		ptr[i]=new student();
+		ptr[i]->read();
+	}
+	cout<<"\n students data:";
+	display(&s1);
+	display(&s2);
+	for(i=0;i<n;i++)
+	{
+		display(ptr[i]);
+	}
+	student::displaycount();
+	for(i=0;i<n;i++)
+	{
+		delete ptr[i];
+	}
+	return 0;
+}
