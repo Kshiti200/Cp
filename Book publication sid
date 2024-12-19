@@ -1,0 +1,106 @@
+#include<iostream>
+#include<string>
+using namespace std;
+
+class publication
+{
+protected:
+    string title;
+    float price;
+
+public:
+    void read()
+    {
+        cout << "\nEnter the title of publication: ";
+        cin >> title;
+        cout << "\nEnter the price of publication: ";
+        cin >> price;
+    }
+
+    void display()
+    {
+        cout << "\nTitle: " << title;
+        cout << "\nPrice: " << price;
+    }
+};
+
+class book : public publication
+{
+    int pgcount;
+
+public:
+    void readbook()
+    {
+        read();
+        cout << "\nEnter page count: ";
+        cin >> pgcount;
+
+        try {
+            if (pgcount <= 0)
+            {
+                throw 1;
+            }
+        }
+        catch (int i)
+        {
+            title = "0";
+            price = 0;
+            pgcount = 0;
+            cout << "\nInvalid page count";
+        }
+    }
+
+    void displaybook()
+    {
+        display();
+        cout << "\nPage count: " << pgcount;
+    }
+};
+
+class tape : public publication
+{
+    float playtime;
+
+public:
+    void readtape()
+    {
+        read();
+        cout << "\nEnter playtime (in minutes): ";
+        cin >> playtime;
+
+        try {
+            if (playtime <= 0)
+            {
+                throw 1;
+            }
+        }
+        catch (int i)
+        {
+            title = "0";
+            price = 0;
+            playtime = 0;
+            cout << "\nInvalid playtime. Setting default values.";
+        }
+    }
+
+    void displaytape()
+    {
+        display();
+        cout << "\nPlaytime: " << playtime << " minutes";
+    }
+};
+
+int main()
+{
+    book b1;
+    cout << "\nEnter book details:";
+    b1.readbook();
+    b1.displaybook();
+
+    tape t1;
+    cout << "\nEnter tape details:";
+    t1.readtape();
+    t1.displaytape();
+
+    return 0;
+}
