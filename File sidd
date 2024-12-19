@@ -1,0 +1,85 @@
+#include<iostream>
+#include<string>
+#include<fstream>
+using namespace std;
+
+class employee
+{
+    int id, salary;
+    string name;
+
+public:
+    void read()
+    {
+        cout << "\nEnter name, id, and salary: ";
+        cin >> name >> id >> salary;
+    }
+
+    void display()
+    {
+        cout << "\nEmployee details:";
+        cout << "\nName: " << name;
+        cout << "\nEmployee ID: " << id;
+        cout << "\nEmployee Salary: " << salary << endl;
+    }
+};
+
+int main()
+{
+    fstream f;
+    employee e;
+    char ch;
+    int c;
+    
+    do
+    {
+        cout << "\n1. Write data into file";
+        cout << "\n2. Read data from file";
+        cout << "\n3. Append data into file";
+        cout << "\nEnter your choice: ";
+        cin >> c;
+        
+        switch(c)
+        {
+            case 1:
+                f.open("b.txt", ios::out);
+                e.read();
+                f.write((char*)&e, sizeof(e));
+                f.close();
+                break;
+
+            case 2:
+                f.open("b.txt", ios::in);
+                if(f)
+                {
+                    while(f.read((char*)&e, sizeof(e)))
+                    {
+                        e.display();
+                    }
+                }
+                else
+                {
+                    cout << "File not found!" << endl;
+                }
+                f.close();
+                break;
+
+            case 3:
+                f.open("b.txt", ios::app);
+                e.read();
+                f.write((char*)&e, sizeof(e));
+                f.close();
+                break;
+
+            default:
+                cout << "Invalid choice!" << endl;
+                break;
+        }
+
+        cout << "\nDo you want to continue (y/n): ";
+        cin >> ch;
+        
+    } while(ch == 'y' || ch == 'Y');
+    
+    return 0;
+}
