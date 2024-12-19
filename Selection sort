@@ -1,0 +1,55 @@
+#include<iostream>
+using namespace std;
+template<class T>
+void selectionsort(T a[20],int n)
+{
+	int i,j,loc;
+	T min,temp;
+	for(i=0;i<n-1;i++)
+	{
+		min=a[i];
+		loc=i;
+		for(j=i+1;j<n;j++)
+		{
+			if (a[j]<min)
+			{
+				min=a[j];
+				loc=j;
+			}
+		}
+		temp=a[i];
+		a[i]=a[loc];
+		a[loc]=temp;
+	}
+	cout<<"\n sorted data:"<<endl;
+	for(i=0;i<n;i++)
+	{
+		cout<<a[i];
+	}
+};
+int main()
+{
+	int a[20];
+	float b[20];
+	int n1,n2;
+	int i;
+	cout<<"\n enter number of elements in the integer array:";
+	cin>>n1;
+	cout<<"\n enter the elements in integer array:";
+	for(i=0;i<n1;i++)
+	{
+		cin>>a[i];
+	}
+	cout<<"\n enter number of elements in the float array:";
+	cin>>n2;
+	cout<<"\n enter the elements in float array:";
+	for(i=0;i<n2;i++)
+	{
+		cin>>b[i];
+	}
+	cout<<"\n this is the sorted integer array:";
+	selectionsort(a,n1);
+	cout<<"\n this is the sorted float array:";
+	selectionsort(b,n2);
+	return 0;
+}
