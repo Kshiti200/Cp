@@ -1,0 +1,127 @@
+#include<iostream>
+#include<string>
+#include<vector>
+#include<iterator>
+#include<algorithm>
+using namespace std;
+
+class student
+{
+    string name, dob, phone;
+public:
+    int r;
+    void read()
+ {
+        cout << "\nEnter the roll no, name, date of birth (DD/MM/YYYY), and phone number: ";
+        cin >> r >> name >> dob >> phone;
+    }
+    void show() 
+	{
+        cout << "\nRoll no: " << r << " Name: " << name << " Date of Birth: " << dob << " Phone Number: " << phone;
+    }
+    bool operator==(const student &s)
+  {
+        return (r == s.r);
+    }
+};
+
+void create(vector<student>& v) 
+{
+    int n, i;
+    student ob;
+    cout << "\nEnter the number of students: ";
+    cin >> n;
+    for (i = 0; i < n; i++) 
+{
+        ob.read();
+        v.push_back(ob);
+    }
+}
+
+void display(vector<student> v)
+ {
+    vector<student>::iterator itr;
+    for (itr = v.begin(); itr != v.end(); itr++)
+        itr->show();
+}
+
+void insert(vector<student>& v)
+ {
+    student ob;
+    ob.read();
+    v.push_back(ob);
+    cout << "Data added";
+}
+
+void search(vector<student> v) 
+{
+    student ob;
+    cout << "\nEnter the roll no to be searched: ";
+    cin >> ob.r;
+    vector<student>::iterator itr;
+    itr = find(v.begin(), v.end(), ob);
+    if (itr == v.end()) 
+{
+        cout << "\nNot found";
+    }
+    else
+ {
+        itr->show();
+    }
+}
+
+void del(vector<student>& v) 
+{
+    student ob;
+cout << "\nEnter the roll no to be deleted: ";
+    cin >> ob.r;
+    vector<student>::iterator itr;
+    itr = find(v.begin(), v.end(), ob);
+    if (itr == v.end())
+ {
+        cout << "\nNot found";
+    }
+    else
+ {
+        v.erase(itr);
+        cout << "\nData deleted successfully";
+    }
+}
+
+bool check1(student& s1, student& s2) {
+    return (s1.r < s2.r);
+}
+
+void sorting(vector<student>& v) 
+{
+    sort(v.begin(), v.end(), check1);
+    cout << "Sorted data successfully";
+}
+
+int main() {
+    vector<student> v;
+    int ch;
+    char choice;
+    do {
+        cout << "1. Create\n2. Display\n3. Insert\n4. Search\n5. Delete\n6. Sorting";
+        cout << "\nEnter your choice: ";
+        cin >> ch;
+        switch (ch) {
+        case 1:create(v);
+                     break;
+        case 2: display(v);
+                       break;
+        case 3:insert(v);
+            break;
+        case 4: search(v);
+                      break;
+        case 5:del(v);
+                    break;
+        case 6:sorting(v);
+                     break;
+        }
+        cout << "\nDo you want to continue(y/n): ";
+        cin >> choice;
+    } while (choice == 'y');
+    return 0;
+}
