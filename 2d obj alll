@@ -1,0 +1,62 @@
+#include<iostream.h>
+#include<graphics.h>
+#include<conio.h>
+#include<math.h>
+#include<dos.h>
+#include<stdlib.h>
+int main()
+{
+  int gd=DETECT,gm;
+  initgraph(&gd,&gm,"C:\\TURBOC3\\BGI\\");
+  int ch;
+  cout<<"\n1.translation \n2.rotation \n3.scaling";
+  cout<<"\nEnter your choice=";
+  cin>>ch;
+  switch(ch)
+  {
+   case 1:
+       int x1=200,y1=150,x2=300,y2=250,tx=50,ty=50;
+       cout<<"\nBefore treanslation";
+       setcolor(3);
+       rectangle(x1,y1,x2,y2);
+       cout<<"\nAfter translation";
+       setcolor(2);
+       rectangle(x1+tx,y1+ty,x2+tx,y2+ty);
+       getch();
+       break;
+   case 2:
+       long a1,b1,a2,b2;
+       a1=200;
+       b1=200;
+       a2=300;
+       b2=300;
+       long a;
+       cout<<"\nWith rotation";
+       setcolor(3);
+       rectangle(a1,b1,a2,b2);
+       cout<<"\nEnter the angle of ratation=" ;
+       cin>>a;
+       a=(a*3.14)/180;
+       setcolor(2);
+       long xr=a1+(a2-a1)*cos(a)-(b2-b1)*sin(a);
+       long yr=b1+(a2-a1)*sin(a)+(b2-b1)*cos(a);
+       rectangle(a1,b1,xr,yr);
+       getch();
+       break;
+   case 3:
+       int c1=30,d1=30,c2=70,d2=70,x=2,y=2;
+       cout<<"\nBefore scaling";
+       setcolor(3);
+       rectangle(c1,d1,c2,d2);
+       cout<<"\nAfter scaling:";
+       setcolor(2);
+       rectangle(c1*x,d1*y,c2*x,d2*y);
+       getch();
+       break;
+
+   default: cout<<"\nINvalid";
+   }
+
+   closegraph();
+   return 0;
+}
